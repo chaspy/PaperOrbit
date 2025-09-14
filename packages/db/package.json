@@ -1,0 +1,27 @@
+{
+  "name": "@paperorbit/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "prisma/schema.prisma"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist",
+    "lint": "eslint . --ext .ts",
+    "prisma": "prisma",
+    "generate": "prisma generate",
+    "migrate": "prisma migrate dev"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.19.1"
+  },
+  "devDependencies": {
+    "prisma": "^5.19.1",
+    "typescript": "^5.4.5",
+    "@types/node": "^20.11.30",
+    "eslint": "^8.57.0",
+    "rimraf": "^5.0.5"
+  }
+}

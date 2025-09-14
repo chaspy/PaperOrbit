@@ -1,0 +1,28 @@
+{
+  "name": "@paperorbit/agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist",
+    "lint": "eslint . --ext .ts"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "fast-xml-parser": "^4.4.0",
+    "openai": "^4.58.1",
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.23.3",
+    "@paperorbit/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "@types/node": "^20.11.30",
+    "eslint": "^8.57.0",
+    "rimraf": "^5.0.5"
+  }
+}

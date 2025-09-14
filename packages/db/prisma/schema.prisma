@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.sqlite"
+}
+
+model Paper {
+  id            String   @id
+  source        String
+  doi           String?  @unique
+  arxivId       String?  @unique
+  openAlexId    String?  @unique
+  title         String
+  abstract      String?
+  year          Int?
+  venue         String?
+  url           String?
+  pdfUrl        String?
+  topicsJson     String?
+  authorsJson    String?
+  referencesJson String?
+  citedByJson    String?
+  summaryJa     String?
+
+  embeddings    Embedding[]
+  pdfArtifacts  PdfArtifact[]
+  notes         Note[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  paperId   String
+  paper     Paper    @relation(fields: [paperId], references: [id], onDelete: Cascade)
+  content   String
+  tags      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Embedding {
+  id        String   @id @default(cuid())
+  paperId   String
+  paper     Paper    @relation(fields: [paperId], references: [id], onDelete: Cascade)
+  model     String
+  dim       Int
+  vector    Bytes
+  createdAt DateTime @default(now())
+}
+
+model Snapshot {
+  id          String   @id @default(cuid())
+  query       String
+  source      String
+  filtersJson String?
+  resultIds   String?
+  rawJson     String?
+  createdAt   DateTime @default(now())
+}
+
+model PdfArtifact {
+  id        String   @id @default(cuid())
+  paperId   String
+  paper     Paper    @relation(fields: [paperId], references: [id], onDelete: Cascade)
+  path      String
+  chars     Int
+  text      String
+  createdAt DateTime @default(now())
+}
